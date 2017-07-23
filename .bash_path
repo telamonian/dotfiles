@@ -1,0 +1,29 @@
+# vim: ft=bash
+
+##################################
+#####              _   _     #####
+#####             | | | |    #####
+#####  _ __   __ _| |_| |__  #####
+##### | '_ \ / _` | __| '_ \ #####
+##### | |_) | (_| | |_| | | |#####
+##### | .__/ \__,_|\__|_| |_|#####
+##### | |                    #####
+##### |_|                    #####
+##################################
+# centralized locale for all $PATH modifications
+
+# append to front. The final element in this section will end up at the beginning of $PATH
+PATH="/usr/local/sbin:${PATH}"
+PATH="/usr/local/bin:${PATH}"
+PATH="/usr/local/opt/python/libexec/bin:${PATH}"
+PATH="${HOME}/usr/bin:${PATH}"
+
+# append to back. The final elemnt in this section will end up at the end of $PATH
+PATH="${PATH}:${HADOOP_HOME}/bin:${SPARK_HOME}/../bin"
+PATH="${PATH}:/usr/local/cuda/bin"
+PATH="${PATH}:/usr/local/android-sdks/platform-tools"
+PATH="${PATH}:/usr/local/gcc-arm-none-eabi/bin"
+PATH="${PATH}:${HOME}/git/lm/build"
+PATH="${PATH}:/Applications/moe2012/bin"
+
+export PATH
