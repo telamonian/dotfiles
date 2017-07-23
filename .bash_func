@@ -3,62 +3,117 @@
 #### arg handling functions
 argStripLast()
 {
+    ## when run on a list of args, remove the last arg
+
     echo "${@:1:$#-1}"
 }
 
 #### general functions
 :only()
 {
+    ## close all iterm2 windows except for current
+
     PROG='!'"/^$$|ack/&&/$(basename $SHELL)"'$/{print$2}'
     ps -ao pid,ppid,comm= | awk "$PROG" | xargs kill
 }
 
 abspath()
 {
+    # get the absolute path from a relative path
+
     echo $(cd $(dirname "$1") && pwd -P)/$(basename "$1")
 }
 
 dolog()
 {
-    unbuffer $(argStripLast "${@}") | tee >(stripColor > "${HOME}/usr/log/${@: -1}")
+    ## Use: dologall <path-to-logfile> <one-or-more-arbitrary-cmds>
+    ## Copies stdout to logfile while still outputting normally.
+    ## If color codes are present, they are left in the stdout while being stripped from the logfile.
+
+    # store the first arg and then shift it away
+    LOGFILE=$1
+    shift
+
+    # the first arg is used as the full path to the logfile, while the rest of the args are run
+    unbuffer "${@}" | tee >(stripColor > "${LOGFILE}")
+
+    # old version in which the logfile path argument had to be passed in last
+    #unbuffer $(argStripLast "${@}") | tee >(stripColor > "${@: -1}")
 }
 
 dologall()
 {
-    unbuffer $(argStripLast "${@}") | tee "${HOME}/usr/log/${@: -1}"
+    ## same as dolog(), except color escape codes (if presnt) are retained in the logfile
+
+    # store the first arg and then shift it away
+    LOGFILE=$1
+    shift
+
+    # the first arg is used as the full path to the logfile, while the rest of the args are run
+    unbuffer "${@}" | tee "${LOGFILE}"
 }
 
 findDirsContaining()
 {
+    ## Find all dirs in $1 containing files or dirs named $2.
+    ## Case sensitive.
+
     find $1 -name $2 -exec dirname {} ';'
 }
 
 hist()
 {
+    ## Find all matches (using grep) to a regex in ${HOME}/.bash_history.
+    ## If only x matches are desired, use as `hist -m x <regex-pattern>`.
+
     grep $@ "${HOME}/.bash_history"
 }
 
 histtail()
 {
+    ## Finds the last 25 matches (using grep-m ) to a regex in ${HOME}/.bash_history.
+    ## The results are then sorted according to the order they occur in .bash_history (ie newest line last, instead of in reverse order).
+
     #tail -r "${HOME}/.bash_history" | grep -m 25 $@ | nl | sort -nr | cut -f 2-
     gtac "${HOME}/.bash_history" | grep -m 25 "${@}" | nl | sort -nr | cut -f 2-
 }
 
+gitfixmodtime()
+{
+    ## Syncs the mod time of a list of files in a git repo to correspond with the last git revision time.
+    ## Kind of a rusty scalpel, in truth.
+
+    local f
+    for f; do
+        touch -d @0`git log --pretty=%at -n1 -- "$f"` "$f"
+    done
+}
+
 greplast()
 {
-    #tail -r "${HOME}/.bash_history" | grep -m 25 $@ | nl | sort -nr | cut -f 2-
+    ## Get the last 25 matches (using grep -m) to a regex in a file.
+    ## Requires `brew install coreutils` or equivalent in order to get the `gtac` cmd.
+
     gtac ${@:2:-1} | grep -m 25 ${@: 1} | nl | sort -nr | cut -f 2-
+
+    # tail version is completely osx native, but has a tendency to stop early (ie before 25 matches are found)
+    #tail -r "${HOME}/.bash_history" | grep -m 25 $@ | nl | sort -nr | cut -f 2-
 }
 
 removeFilesInList()
 {
-    for f in $(cat $1) ; do 
+    ## Removes all of the files in a passed in list, including empty dirs.
+
+    for f in $(cat $1) ; do
         rm -r "$f"
     done
 }
 
 stripColor()
 {
+    ## Strips the bash color escapes from anything piped to this function.
+    ## Assumes the escapes begin with \x1B, which just so happens to be the standard `esc` char.
+
     sed -E $'s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[mGK]//g'
 }
 
