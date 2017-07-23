@@ -8,6 +8,10 @@
 #### | |_) | (_| \__ \ | | | ####
 #### |_.__/ \__,_|___/_| |_| ####
 #################################
+# for colorful terminals
+export CLICOLOR=1
+export LSCOLORS=GxFxCxDxBxegedabagaced
+
 # for homebrew and other cmd progs that can use multiple txt editors
 export EDITOR="vim"
 
