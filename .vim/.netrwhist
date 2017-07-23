@@ -1,5 +1,0 @@
-let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =3
-let g:netrw_dirhist_1='/Users/tel/usr/pyscript'
-let g:netrw_dirhist_2='/usr/local/Homebrew'
-let g:netrw_dirhist_3='/Users/tel/.vim/ftdetect'

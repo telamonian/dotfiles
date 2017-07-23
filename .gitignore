@@ -1,7 +1,13 @@
+# random os junk
 ~$*
 .DS_Store
 
+# python/cython intermediate files
 *.pyc
 *.ptx
 
+# gdb command history
 .gdb_history
+
+# random vim junk
+.vim/.netrwhist
