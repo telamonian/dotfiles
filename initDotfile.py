@@ -16,18 +16,18 @@ def main():
     initPath = os.path.join(dotfilesPath, sys.argv[1])
     
     # don't allow overwriting of existing dotfile (for now don't allow any overwriting at all, may be relaxed in future)
-    if os.path.isfile(initPath) || os.path.isdir():
+    if os.path.isfile(initPath) or os.path.isdir(initPath):
         raise ValueError("dotfile at: %s already exists!" % initPath)
 
-    dotfile = open(m, 'w')
-    dotfile.write(modeline)
-    
-    # make a banner at the top of the new dotfile if requested
-    if len(sys.argv) > 2:
-        # the script has been passed at least two args. Make a banner from the second arg and (for now) ignore the rest
-        bannerMaker = BannerMaker(test=sys.argv[2])
-        bannerMaker.adorn()
-        dotfile.write('%s' % bannerMaker)
+    with open(initPath, 'w') as dotfile:
+        dotfile.write(modeline)
+        
+        # make a banner at the top of the new dotfile if requested
+        if len(sys.argv) > 2:
+            # the script has been passed at least two args. Make a banner from the second arg and (for now) ignore the rest
+            bannerMaker = BannerMaker(text=sys.argv[2])
+            bannerMaker.adorn()
+            dotfile.write('%s' % bannerMaker)
 
 if __name__=='__main__':
     main()
