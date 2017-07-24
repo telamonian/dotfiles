@@ -8,54 +8,9 @@
 #### | |_) | (_| \__ \ | | | | | (__  ####
 #### |_.__/ \__,_|___/_| |_|_|  \___| ####
 ##########################################
-#### Do all of the bash history setup stuff here and then source .bashrc in ${HOME}/.bash_profile.
-#### Ensures that shell startup is consistent across login vs non and interactive vs non shells, which in particular (hopefully) prevents unwanted trncation of ${HOME}/.bash_hist.
-
-## The basic history settings.
-## All of this stuff is also in /etc/profile (we'll see how necessary that is in the long run).
-
-# don't put duplicate lines or lines starting with space in the history.
-# See bash(1) for more options
-HISTCONTROL=ignoreboth
-
-# append to the history file, don't overwrite it
-shopt -s histappend
+#### Setup (possibly redundantly) some shell history file length/size stuff
+#### Ensures that shell startup is consistent across login vs non and interactive vs non shells, preventing unwanted trncation of ${HOME}/.bash_hist.
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
 HISTSIZE=1000000
 HISTFILESIZE=1000000
-
-# record sessions to .bash_history immediately, rather than waiting to flush until session termination
-PROMPT_COMMAND='history -a'
-
-# After each command, save and reload history
-#export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND$'\n'}history -a; history -c; history -r"
-
-## In case something happens to ${HOME}/.bash_history, the next part automatically saves a backup on every login and restores it when it detects that the history has been truncated
-## Ensures that only the most recent part of the history is lost
-
-# get the number of lines in ~/.bash_history and save it to ~/.bash_history_linecount
-BHPATH=$HOME/.bash_history
-BHBAKUPPATH=$HOME/.bash_history_bakup
-BHDIRTYPATH=$HOME/.bash_history_bakup_dirty
-BHLCOUNTPATH=$HOME/.bash_history_linecount
-
-OLD_BHLCOUNT=$(tail -r $BHLCOUNTPATH | egrep -m 1 '.')
-BHLCOUNT=$(wc -l $BHPATH | awk {'print $1'})
-if (( OLD_BHLCOUNT > BHLCOUNT )); then
-    echo "$BHPATH has shrunk since last login!"
-    echo "was $OLD_BHLCOUNT, now $BHLCOUNT"
-    echo "restoring $BHPATH from $BHBAKUPPATH"
-    echo "the damaged $BHPATH was saved to $BHDIRTYPATH"
-
-    # copy the current history to the dirty path
-    cp $BHPATH $BHDIRTYPATH
-
-    # copy the bakup history to the normal history path
-    cp $BHBAKUPPATH $BHPATH
-else
-    # copy the current history to the bakup path
-    cp $BHPATH $BHBAKUPPATH
-fi
-echo $(date) >> $BHLCOUNTPATH
-echo $BHLCOUNT >> $BHLCOUNTPATH
