@@ -9,5 +9,10 @@
 # gdb command history
 .gdb_history
 
+# jetbrains junk
+.idea
+*.iml
+/cmake-build*
+
 # random vim junk
 .vim/.netrwhist
