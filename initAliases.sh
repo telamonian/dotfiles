@@ -1,15 +1,13 @@
 #!/usr/bin/env bash
-
-# an array of all the dotfiles for which we want there to be soft links to in ${HOME}
-declare -a dotfileArr=(
-    ".bashrc"
-    ".pythonstartup.py"
-    ".tmux.conf"
-    ".vim"
-    ".vimrc"
-)
-
 ## a script that re/create all of necessary links between ${HOME} and the dotfiles repo
+
+# set this var for a dry-run or for a cleanup
+# TODO: refactor into command line args
+RUNTYPE=normal
+#RUNTYPE=dryrun
+#RUNTYPE=clean
+
+# figure out the absolute path to the directory containing this script
 reldir=$(dirname "$(stat -f "$0")")
 absdir=$(cd $(dirname "${reldir}") && pwd -P)/$(basename "${reldir}")
 
@@ -17,11 +15,19 @@ absdir=$(cd $(dirname "${reldir}") && pwd -P)/$(basename "${reldir}")
 relpath=$(python -c "import os.path; print os.path.relpath(\"${absdir}\", \"${HOME}\")")
 
 ## loop through the array of dotfiles and create softlinks in ${HOME} pointing to them along relpath
-for i in "${dotfileArr[@]}"
-do
-    ln -s ${relpath}/${i}
+for dotfileReal in ${absdir}/dotfile.d/.[!.]*; do
+    dotfileName=$(basename $dotfileReal)
 
-    # dry run version
-    #echo ln -s ${relpath}/${i}
+    if [ "$RUNTYPE" = dryrun ] ; then
+        # dry run version
+        echo "linking ${HOME}/$dotfileName -> ${relpath}/dotfile.d/$dotfileName"
+        echo ln -s ${relpath}/dotfile.d/$dotfileName ${HOME}/$dotfileName
+    elif [ "$RUNTYPE" = clean ] ; then
+        echo "removing link at ${HOME}/$dotfileName"
+        rm ${HOME}/$dotfileName
+    else
+        # normal version
+        echo "linking ${HOME}/$dotfileName -> ${relpath}/dotfile.d/$dotfileName"
+        ln -s ${relpath}/dotfile.d/$dotfileName ${HOME}/$dotfileName
+    fi
 done
-

@@ -15,4 +15,4 @@
 /cmake-build*
 
 # random vim junk
-.vim/.netrwhist
+dotfile.d/.vim/.netrwhist
