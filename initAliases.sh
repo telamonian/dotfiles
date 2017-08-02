@@ -51,26 +51,44 @@ relpath=$(python -c "import os.path; print os.path.relpath(\"${absdir}\", \"${HO
 ## loop through the array of dotfiles and create softlinks in ${HOME} pointing to them along relpath
 for dotfileReal in ${absdir}/dotfile.d/.[!.]*; do
     dotfileName=$(basename $dotfileReal)
+    linkPath=${HOME}/$dotfileName
+    targetPath=${relpath}/dotfile.d/$dotfileName
 
     if [ "$remove" = true ] ; then
-        echo "removing link at ${HOME}/$dotfileName"
+        echo "Removing link at $linkPath..."
 
-        if [ "$dryrun" = true ] ; then
-            # dryrun version of remove
-            echo rm ${HOME}/$dotfileName
+        if [ ! -L $linkPath ] ; then
+            # link does not currently exist
+            echo "...$linkPath does exist, skipping."
         else
-            # normal version of remove
-            rm ${HOME}/$dotfileName
+            # link currently exists
+            if [ "$dryrun" = true ] ; then
+                # dryrun version of remove
+                echo rm $linkPath
+            else
+                # normal version of remove
+                rm $linkPath
+            fi
+
+            echo "...done."
         fi
     else
-        echo "linking ${HOME}/$dotfileName -> ${relpath}/dotfile.d/$dotfileName"
+        echo "Linking $linkPath -> $targetPath..."
 
-        if [ "$dryrun" = true ] ; then
-            # dryrun version of normal linking behavior
-            echo ln -s ${relpath}/dotfile.d/$dotfileName ${HOME}/$dotfileName
+        if [ ! -L $linkPath ] ; then
+            # link does not currently exist
+            if [ "$dryrun" = true ] ; then
+                # dryrun version of normal linking behavior
+                echo ln -s $targetPath $linkPath
+            else
+                # normal version of normal linking behavior
+                ln -s $targetPath $linkPath
+            fi
+
+            echo "...done."
         else
-            # normal version of normal linking behavior
-            ln -s ${relpath}/dotfile.d/$dotfileName ${HOME}/$dotfileName
+            # link currently exists
+            echo "...$linkPath already exists, skipping."
         fi
     fi
 done

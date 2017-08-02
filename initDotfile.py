@@ -36,13 +36,16 @@ class Main(object):
     # default modeline. Ensures that vim highlight's a file as bash in the absence of other hints. Requires some customization of a user's ~/.vim directory in order to work
     modelineDefault = '# vim: ft=bash\n'
 
-    # the real path to this script. Thus it should always remain at the toplevel of the dotfile repo
-    dotfilesPath = os.path.dirname(os.path.realpath(__file__))
+    # the real path to this script. Thus for now this script should remain at the toplevel of the dotfile repo
+    thisPath = os.path.dirname(os.path.realpath(__file__))
+
+    # abs path to the dotfile.d directory
+    dotfiledPath = os.path.join(thisPath, 'dotfile.d')
 
     def initParser(self):
         parser = ArgumentParserInitDotfile(description='This script creates a new dotfile, including a filetype=bash modeline for vim and an optional banner.')
 
-        parser.add_argument('name',                          help='The new dotfile will be created at %s.' % os.path.join(self.dotfilesPath, '<name>'))
+        parser.add_argument('name',                          help='The new dotfile will be created at %s.' % os.path.join(self.dotfiledPath, '<name>'))
         parser.add_argument('-b', '--banner',                help='[optional] A string that will be converted to ascii art and used as a header in the new dotfile.')
         parser.add_argument('-m', '--modeline',
                             default=self.modelineDefault,    help="Modeline that tells vim how to highlight the new dotfile's text.")
@@ -59,7 +62,7 @@ class Main(object):
         kwargs = parser.parse_kwargs()
 
         # resolve the path to the new dotfile
-        initPath = os.path.join(self.dotfilesPath, kwargs['name'])
+        initPath = os.path.join(self.dotfiledPath, kwargs['name'])
 
         # don't allow overwriting of existing dotfile (for now don't allow any overwriting at all, may be relaxed in future)
         if os.path.isfile(initPath) or os.path.isdir(initPath):
@@ -69,6 +72,8 @@ class Main(object):
         with open(initPath, 'w') as dotfile:
             # add the modeline
             dotfile.write(kwargs['modeline'])
+            # add a newline
+            dotfile.write('\n')
 
             # make a banner at the top of the new dotfile if requested
             if kwargs['banner']:

@@ -19,6 +19,8 @@
         - A modularized version of .bash_profile, with various functionalities split into various files.
     - **.bashrc**
         - Bare bones, with just a couple of lines for ensuring that .bash_hist doesn't get accidentally truncated when non-login shells are created.
+    - **.byebugrc**
+        - For the byebug ruby debugging gem. Prevents writing of debugger history, preventing crashes due to permissions issues.
     - **.pythonstartup.py**
         - For automatically including a couple of useful packages every time python is started (eg numpy aliased to np).
     - **.tmux.conf**
