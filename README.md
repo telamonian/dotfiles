@@ -1,6 +1,18 @@
-# Tel's Dotfiles
+# Tel's Dotfile Repository
 
-## Dotfiles
+## Quick Start Guide
+- Two steps required for use:
+    - Add these lines to the top of your `~/.bash_profile`:
+        ```
+        DOTFILES=<path-to-your-dotfile-repo>
+        
+        for bashsrc in ${DOTFILES}/bash_profile.d/.bash_*; do
+            source $bashsrc
+        done
+        ```
+    - Run the `initAliases.sh` script that's located at the root of this repository.
+
+## List of Dotfiles
 
 - Current dotfiles
     - **bash_profile.d**
@@ -12,7 +24,7 @@
     - **.tmux.conf**
         - Gives a nice status line.
         - Ensures that all of the vim copy/paste stuff (described below) works correctly for vim instances run in tmux windows.
-    - **.vim/.vimrc**
+    - **.vim** *and* **.vimrc**
         - Sets various personal preferences, such as reopening files at the line on which they were closed, etc.
         - Ensures that bash is recognized as a specific filetype, instead of the default vim behavior of combining sh, bash, and korn shell into a single filetype.
         - Ensures that copying/pasting using the normal system clipboard/shortcuts (cmd-c/cmd-v) works as expected without needing to enter and exit paste mode.
@@ -31,7 +43,7 @@
     - Homebrew integration
     - Vagrant integration
 
-## Instructions
+## Full Instructions
 
 ### .bash_profile setup
 #### Install
