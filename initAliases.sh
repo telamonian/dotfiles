@@ -55,11 +55,11 @@ for dotfileReal in ${absdir}/dotfile.d/.[!.]*; do
     targetPath=${relpath}/dotfile.d/$dotfileName
 
     if [ "$remove" = true ] ; then
-        echo "Removing link at $linkPath..."
+        echo "Removing link at $linkPath ..."
 
         if [ ! -L $linkPath ] ; then
             # link does not currently exist
-            echo "...$linkPath does exist, skipping."
+            echo "... $linkPath does exist, skipping."
         else
             # link currently exists
             if [ "$dryrun" = true ] ; then
@@ -70,10 +70,10 @@ for dotfileReal in ${absdir}/dotfile.d/.[!.]*; do
                 rm $linkPath
             fi
 
-            echo "...done."
+            echo "... done."
         fi
     else
-        echo "Linking $linkPath -> $targetPath..."
+        echo "Linking $linkPath -> $targetPath ..."
 
         if [ ! -L $linkPath ] ; then
             # link does not currently exist
@@ -85,10 +85,10 @@ for dotfileReal in ${absdir}/dotfile.d/.[!.]*; do
                 ln -s $targetPath $linkPath
             fi
 
-            echo "...done."
+            echo "... done."
         else
             # link currently exists
-            echo "...$linkPath already exists, skipping."
+            echo "... $linkPath already exists, skipping."
         fi
     fi
 done
