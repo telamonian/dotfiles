@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # pass your vim executable of choice as the first arg. Defaults to just "vim"
-if [ -z ${1+x} ]; then 
+if [ -z ${1+x} ]; then
     # no arg passed, just use "vim"
     vim_exec="vim"
 else

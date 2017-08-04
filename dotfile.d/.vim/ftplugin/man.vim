@@ -17,16 +17,16 @@ if &filetype == "man"
 
   " Ensure Vim is not recursively invoked (man-db does this)
   " when doing ctrl-[ on a man page reference.
-  if exists("$MANPAGER")
-    if exists("$MANPAGER_FALLBACK")
-      " Use the default pager supplied by the user via an env var
-      let $MANPAGER = "$MANPAGER_FALLBACK"
-    else
-      " This breaks some implementations of man that don't 
-      " see an empty string as unset (eg OSX Sierra)
-      let $MANPAGER = ""
-    endif
-  endif
+  "if exists("$MANPAGER")
+  "  if exists("$MANPAGER_FALLBACK")
+  "    " Use the default pager supplied by the user via an env var
+  "    let $MANPAGER = "$MANPAGER_FALLBACK"
+  "  else
+  "    " This breaks some implementations of man that don't 
+  "    " see an empty string as unset (eg OSX Sierra)
+  "    let $MANPAGER = ""
+  "  endif
+  "endif
 
   " allow dot and dash in manual page name.
   setlocal iskeyword+=\.,-
