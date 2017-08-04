@@ -1,10 +1,19 @@
 #!/usr/bin/env bash
 
+# pass your vim executable of choice as the first arg. Defaults to just "vim"
+if [ -z ${1+x} ]; then 
+    # no arg passed, just use "vim"
+    vim_exec="vim"
+else
+    vim_exec=$1
+fi
+
+# figure out the location of your vim's root plugin dir
+vim_root_plugindir=$(${vim_exec} -e -T dumb --cmd 'exe "set t_cm=\<C-M>"|echo $VIMRUNTIME|quit' | tr -d '\015')
+
+# some plugin file paths
 manvim_relpath=ftplugin/man
 manpagervim_relpath=plugin/manpager
-
-# should be something along the lines of ${path-to-vim-install}/share/vim/vim80
-vim_root_plugindir=$1
 
 # figure out the absolute path to the directory containing this script (which should also be the .vim dir)
 relthisdir=$(dirname "$(stat -f "$0")")
