@@ -19,3 +19,8 @@ export LSCOLORS=GxFxCxDxBxegedabagaced
 # for homebrew and other cmd progs that can use multiple txt editors
 export EDITOR="vim"
 
+# use vim for viewing manpages (default is /usr/bin/less)
+export MANPAGER="vim -M +MANPAGER -"
+#export MANPAGER="env MAN_PN=1 vim +MANPAGER -"
+#export MANPAGER="env MAN_PN=1 vim -M +MANPAGER -"
+#export MANPAGER="vim -c MANPAGER -"
