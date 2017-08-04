@@ -1,0 +1,5 @@
+# vim: ft=bash
+
+# example of using a regex to grab a specific block of text from a larger dump in a single command
+# query `man` to determine its default pager
+MANPAGER_FALLBACK="$(man -d 2>&1 | grep pager | sed -E 's/^using (.*) as pager\s*$/\1/g')"

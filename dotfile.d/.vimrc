@@ -65,17 +65,3 @@ endif
 " turn filetype plugin on, for (hopefully) better filetype support
 filetype plugin on
 
-"runtime plugin/manplugin.vim
-
-" notes
-" below are some random vim insight/commands for dealing with tricky situations
-
-" set a breakpoint for debugging vimscript (from http://inlehmansterms.net/2014/10/31/debugging-vim/)
-"breakadd here
-
-" echo a message that can be viewed by scrolling up in the vim command history. Closest thing to a print statement for vimscript
-"echom "your message here"
-
-" set vim verbosity from 0-15. BEWARE: even verbose=9 is waaaay too much
-"set verbose=9
-
