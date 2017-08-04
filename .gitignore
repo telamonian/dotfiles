@@ -16,3 +16,4 @@
 
 # random vim junk
 dotfile.d/.vim/.netrwhist
+*.swp
