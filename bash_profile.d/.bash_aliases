@@ -23,9 +23,25 @@ alias cmakerelease='cmake -DCMAKE_BUILD_TYPE=RELEASE'
 
 ## aliases for docker shortcuts
 # commands for building, initializing, starting, and attaching to docker containers
-alias dcontainer_build_here='docker build . -t'
-alias dcontainer_init='-it --rm -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix'
+dcont_build_here()
+{
+    # build the Dockerfile in the current dir into an image named $1
+    image_name=$1
 
+    docker build . -t "${image_name}"
+}
+
+# remove all containers and images
+alias dcont_clean='docker stop $(docker ps -a -q) && docker rm $(docker ps -a -q) && docker rmi $(docker images -q)'
+
+dcont_init()
+{
+    # start and join a docker container named $2 using image $1 
+    image_name=$1
+    container_name=$2
+
+    docker run -it --rm -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix
+}
 
 ## aliases for docker-machine shortcuts
 # login-to-login persistent docker machine start and stop

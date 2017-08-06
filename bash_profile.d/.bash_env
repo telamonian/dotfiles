@@ -34,8 +34,19 @@ export LEAPSDK_DIR='/usr/local/LeapSDK'
 # controls the protobuf python implementation
 export PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION='cpp'
 
-# vagrant env vars
+## vagrant env vars
+# location of Vagrantfile.
+export VAGRANT_CWD="${HOME}/usr/vm/vagrant"
+
+# name (not path) of vagrant config file. defaults to Vagrantfile.
+# VAGRANT_VAGRANTFILE="myweirdvagrant"
+
+# the directory where Vagrant stores VM-specific state, such as the VirtualBox VM UUID. 
+# relatively light storage requirements.
 export VAGRANT_DOTFILE_PATH="${HOME}/usr/vm/vagrant"
+
+# the directory where vagrant stores global state. 
+# boxes and such are stored here, so this is the largest working dir.
 export VAGRANT_HOME="${HOME}/usr/vm/vagrant"
 
 # break glass in case of linking emergency (to freshly built libs)
