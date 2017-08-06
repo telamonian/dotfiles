@@ -24,6 +24,12 @@ abspath()
     echo $(cd $(dirname "$1") && pwd -P)/$(basename "$1")
 }
 
+cdtap()
+{
+    # cd to root repository directory of a homebrew tap
+    cd $(brew --repository $1)
+}
+
 dolog()
 {
     ## Use: dologall <path-to-logfile> <one-or-more-arbitrary-cmds>
