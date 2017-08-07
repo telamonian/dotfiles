@@ -1,4 +1,8 @@
 #!/usr/bin/env bash
+
+# the user from whom to copy the .ssh setup
+sshuser=$1
+
 create_brew_user()
 {
     localedef -i en_US -f UTF-8 en_US.UTF-8
@@ -7,7 +11,7 @@ create_brew_user()
 
     # add an .ssh dir if one does not exist
     if [ ! -d /home/linuxbrew/.ssh ]; then
-        cp /home/vagrant/.ssh/authorized_keys /home/linuxbrew/.ssh
+        cp -r /home/${sshuser}/.ssh /home/linuxbrew
     fi
     chown -R linuxbrew: /home/linuxbrew/.ssh
 }
