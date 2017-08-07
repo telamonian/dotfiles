@@ -1,0 +1,63 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+    # for more opts see https://docs.vagrantup.com.
+    
+    # global ssh config
+    config.ssh.forward_agent = true
+    config.ssh.forward_x11 = true
+
+    ## vagrant-vbguest plugin global config
+    # config.vbguest.auto_update = false
+    # config.vbguest.no_remote = true
+
+    # syntax: host_path, guest_path, [options]
+    config.vm.synced_folder ENV['HOME'], ENV['HOME']
+
+    config.vm.provider "virtualbox" do |vb|
+        # Display the VirtualBox GUI when booting the machine
+        vb.gui = true
+
+        # Customize the amount of memory on the VM:
+        vb.memory = "4096"
+    end
+
+    config.vm.define "xenial" do |xenial|
+        xenial.vm.box = "ubuntu/xenial64"
+        xenial.vm.box_check_update = false
+        xenial.vm.network "forwarded_port", guest: 22, host: 10022, host_ip: "127.0.0.1"
+
+        xenial.vm.provision "shell", inline: <<-SHELL
+            apt-get update
+
+            apt-get install -y -q vim slurm
+        SHELL
+    end
+    
+    config.vm.define "linuxbrew" do |linuxbrew|
+        linuxbrew.vm.box = "ubuntu/trusty64"
+        linuxbrew.vm.box_check_update = false
+        linuxbrew.vm.network "forwarded_port", guest: 22, host: 10023, host_ip: "127.0.0.1"
+        
+        linuxbrew.vm.provision "shell", inline: <<-SHELL
+            /vagrant/provision/linuxbrew_trusty_pkg_provision.sh
+            /vagrant/provision/linuxbrew_brew_provision.sh
+        SHELL
+
+        linuxbrew.ssh.username = "linuxbrew"
+    end
+    
+    config.vm.define "linuxbrew_xenial" do |linuxbrew_xenial|
+        linuxbrew_xenial.vm.box = "ubuntu/xenial64"
+        linuxbrew_xenial.vm.box_check_update = false
+        linuxbrew_xenial.vm.network "forwarded_port", guest: 22, host: 10024, host_ip: "127.0.0.1"
+
+        linuxbrew_xenial.vm.provision "shell", inline: <<-SHELL
+            /vagrant/provision/linuxbrew_xenial_pkg_provision.sh
+            /vagrant/provision/linuxbrew_brew_provision.sh
+        SHELL
+
+        #linuxbrew.ssh.username = "linuxbrew"
+    end
+end
