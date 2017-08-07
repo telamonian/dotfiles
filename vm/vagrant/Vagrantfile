@@ -11,7 +11,7 @@ Vagrant.configure("2") do |config|
     config.ssh.forward_x11 = true
 
     ## vagrant-vbguest plugin global config
-    # config.vbguest.auto_update = false
+    config.vbguest.auto_update = false
     # config.vbguest.no_remote = true
 
     # syntax: host_path, guest_path, [options]
@@ -21,8 +21,15 @@ Vagrant.configure("2") do |config|
         # Display the VirtualBox GUI when booting the machine
         vb.gui = true
 
+        # cpu count per vm
+        vb.cpus = 2
+
         # Customize the amount of memory on the VM:
         vb.memory = "4096"
+
+        vb.customize ["modifyvm", :id, "--graphicscontroller", "vboxvga"]
+        vb.customize ["modifyvm", :id, "--accelerate3d", "on"]
+        vb.customize ["modifyvm", :id, "--vram", "256"]
     end
 
     config.vm.define "xenial" do |xenial|
@@ -50,6 +57,8 @@ Vagrant.configure("2") do |config|
         linuxbrew.vm.provision "shell", inline: <<-SHELL
             /vagrant/provision/linuxbrew_trusty_pkg_provision.sh
             /vagrant/provision/linuxbrew_brew_provision.sh vagrant
+            
+            /vagrant/provision/password_provision.sh root ubuntu vagrant linuxbrew
         SHELL
     end
     
@@ -65,6 +74,8 @@ Vagrant.configure("2") do |config|
         linuxbrew_xenial.vm.provision "shell", inline: <<-SHELL
             /vagrant/provision/linuxbrew_xenial_pkg_provision.sh
             /vagrant/provision/linuxbrew_brew_provision.sh ubuntu
+
+            /vagrant/provision/password_provision.sh root ubuntu linuxbrew
         SHELL
     end
 end

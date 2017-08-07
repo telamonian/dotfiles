@@ -43,6 +43,10 @@ create_brew_user
 # set up the paths needed by brew
 SET_BREW_PATH='PATH=/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:$PATH'
 sudo -u linuxbrew bash -c "grep -q -F '${SET_BREW_PATH}' /home/linuxbrew/.profile || echo '${SET_BREW_PATH}' >> /home/linuxbrew/.profile"
+
+# other env
+SET_EDITOR="export EDITOR='vim'"
+sudo -u linuxbrew bash -c "grep -q -F '${SET_EDITOR}' /home/linuxbrew/.profile || echo '${SET_EDITOR}' >> /home/linuxbrew/.profile"
 #sudo -Hi -u linuxbrew bash -c "echo 'SHELL=/bin/bash' >> /home/linuxbrew/.profile
 
 # set up the actual brew files

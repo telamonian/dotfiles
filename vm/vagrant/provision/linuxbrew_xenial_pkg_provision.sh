@@ -7,7 +7,7 @@ update_apt()
 
 install_apt_pkg()
 {
-    apt-get install -y curl file g++ git make libxml-parser-perl libxml-sax-perl openssh-server ruby2.0 ruby2.0-dev uuid-runtime vim wbritish
+    apt-get install -y curl file g++ git make libxml-parser-perl libxml-sax-perl openssh-server ruby2.0 ruby2.0-dev uuid-runtime vim dkms build-essential module-assistant
     ln -sf ruby2.0 /usr/bin/ruby
     ln -sf gem2.0 /usr/bin/gem
 }
