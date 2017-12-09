@@ -7,11 +7,11 @@ set -e
 show_help() {
 cat << EOF
 Usage: ${0##*/} [-cd]
-Set up links between your {HOME} dir and the dotfiles in dotfile.d
+Set up links between your {HOME} dir and the dotfiles in {DOT_HOME}
 
     -h    Display this help and exit.
     -d    Dry run. For debug purposes, echo commands instead of running them. Can also be used in conjunction with -r
-    -r    Remove links. Instead of creating links, remove any existing links to dotfiles in dotfile.d
+    -r    Remove links. Instead of creating links, remove any existing links to dotfiles in {DOT_HOME}
 EOF
 }
 
@@ -41,23 +41,22 @@ while getopts hdr opt; do
 done
 shift "$((OPTIND-1))"   # Discard the options and sentinel --
 
-# get absdotdir (the absolute path to the dotfile root dir) from vars.sh
+# get some common directory paths (ABS_DOT_ROOT, DOT_HOME, etc.) from vars.sh
 reldir=$(dirname "$(stat -f "${BASH_SOURCE}")")
 source "${reldir}"/dotvars.sh
-#absdotdir=$(cd "${reldir}" && pwd -P)
 
 # might be a better way of doing this, but for now we just cheat with pyton in order to get the relative path between the dotfiles (including this script) and ${HOME}
-relpath=$(python -c "import os.path; print os.path.relpath(\"${absdotdir}\", \"${HOME}\")")
+relpath=$(python -c "import os.path; print os.path.relpath(\"${ABS_DOT_ROOT}\", \"${HOME}\")")
 
-## loop through every file in dotfile.d that starts with exactly one period and create softlinks in ${HOME} pointing to them along relpath
-for dotfileReal in ${absdotdir}/dotfile.d/.[!.]*; do
+## loop through every file in {DOT_HOME} that starts with exactly one period and create softlinks in ${HOME} pointing to them along relpath
+for dotfileReal in ${ABS_DOT_ROOT}/${DOT_HOME}/.[!.]*; do
     case $dotfilereal in
         # filter out any .swp files
         *.swp ) continue;;
     esac
     dotfileName=$(basename $dotfileReal)
     linkPath=${HOME}/$dotfileName
-    targetPath=${relpath}/dotfile.d/$dotfileName
+    targetPath=${relpath}/${DOT_HOME}/$dotfileName
 
     if [ "$remove" = true ] ; then
         echo "Removing link at $linkPath ..."

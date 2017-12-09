@@ -27,7 +27,7 @@ source "${reldir}"/dotvars.sh
 
 bashProfilePaths()
 {
-    for bashsrc in "${absdotdir}"/bash_profile.d/.bash_*; do
+    for bashsrc in "${ABS_DOT_ROOT}"/"${DOT_BASH}"/.bash_*; do
         case "${bashsrc}" in
             *.swp ) continue;;
             * ) echo "${bashsrc}";;
