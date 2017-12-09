@@ -9,7 +9,8 @@ def _fixmanpager():
 
     if vimix and os.environ['MANPAGER'].find('MANPAGER'):
         # if MANPAGER follows vim, assume manpager.vim is being used, unset MANPAGER
-        os.environ.pop('MANPAGER')
+        #os.environ.pop('MANPAGER')
+        os.environ['MANPAGER'] = 'vim --not-a-term +PYDOCPAGER -'
 
         return True
     else:

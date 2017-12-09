@@ -1,8 +1,8 @@
-" from https://github.com/vim/vim/issues/2323
+" inspired by https://github.com/vim/vim/issues/2323
 
-command! -nargs=0 MANPAGER call s:ManPager() | delcommand MANPAGER
+command! -nargs=0 PYDOCPAGER call s:PydocPager() | delcommand PYDOCPAGER
 
-function! s:ManPager()
+function! s:PydocPager()
   set nocompatible
   if exists('+viminfofile')
     set viminfofile=NONE
@@ -17,11 +17,11 @@ function! s:ManPager()
   silent keepj keepp %s/\v(.)\b\ze\1?//ge
 
   " Remove empty lines above the header
-  call cursor(1, 1)
-  let n = search(".*(.*)", "c")
-  if n > 1
-    exe "1," . n-1 . "d"
-  endif
+  "call cursor(1, 1)
+  "let n = search(".*(.*)", "c")
+  "if n > 1
+  "  exe "1," . n-1 . "d"
+  "endif
   setlocal nomodified readonly
 
   syntax on
