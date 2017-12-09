@@ -41,15 +41,19 @@ while getopts hdr opt; do
 done
 shift "$((OPTIND-1))"   # Discard the options and sentinel --
 
-# figure out the absolute path to the directory containing this script
-reldir=$(dirname "$(stat -f "$0")")
-absdir=$(cd $(dirname "${reldir}") && pwd -P)/$(basename "${reldir}")
+# figure out the absolute path to the directory one level above this script
+reldir=$(dirname "$(stat -f "$0")")/..
+absdir=$(cd "${reldir}" && pwd -P)
 
 # might be a better way of doing this, but for now we just cheat with pyton in order to get the relative path between the dotfiles (including this script) and ${HOME}
 relpath=$(python -c "import os.path; print os.path.relpath(\"${absdir}\", \"${HOME}\")")
 
 ## loop through every file in dotfile.d that starts with exactly one period and create softlinks in ${HOME} pointing to them along relpath
 for dotfileReal in ${absdir}/dotfile.d/.[!.]*; do
+    case $dotfilereal in
+        # filter out any .swp files
+        *.swp ) continue;;
+    esac
     dotfileName=$(basename $dotfileReal)
     linkPath=${HOME}/$dotfileName
     targetPath=${relpath}/dotfile.d/$dotfileName
@@ -59,7 +63,7 @@ for dotfileReal in ${absdir}/dotfile.d/.[!.]*; do
 
         if [ ! -L $linkPath ] ; then
             # link does not currently exist
-            echo "... $linkPath does exist, skipping."
+            echo "... $linkPath does not exist, skipping."
         else
             # link currently exists
             if [ "$dryrun" = true ] ; then

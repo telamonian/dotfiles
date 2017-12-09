@@ -40,7 +40,7 @@ class Main(object):
     thisPath = os.path.dirname(os.path.realpath(__file__))
 
     # abs path to the dotfile.d directory
-    dotfiledPath = os.path.join(thisPath, 'dotfile.d')
+    dotfiledPath = os.path.realpath(os.path.join(thisPath, '../', 'dotfile.d'))
 
     def initParser(self):
         parser = ArgumentParserInitDotfile(description='This script creates a new dotfile, including a filetype=bash modeline for vim and an optional banner.')
@@ -48,7 +48,7 @@ class Main(object):
         parser.add_argument('name',                          help='The new dotfile will be created at %s.' % os.path.join(self.dotfiledPath, '<name>'))
         parser.add_argument('-b', '--banner',                help='[optional] A string that will be converted to ascii art and used as a header in the new dotfile.')
         parser.add_argument('-m', '--modeline',
-                            default=self.modelineDefault,    help="Modeline that tells vim how to highlight the new dotfile's text.")
+                            default=self.modelineDefault,    help="""[default = "%s"] Modeline that tells vim how to highlight the new dotfile's text.""" % self.modelineDefault)
 
         return parser
 
