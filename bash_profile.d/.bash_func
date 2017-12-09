@@ -19,9 +19,9 @@ argStripLast()
 
 abspath()
 {
-    # get the absolute path from a relative path
-
-    echo $(cd $(dirname "$1") && pwd -P)/$(basename "$1")
+    ## assuming argument is a valid relative path, returns equivalent absolute path
+    ## `ls -d` is to check if return value is valid path
+    echo $(ls -d $(cd $(dirname "$1") && pwd -P)/$(basename "$1"))
 }
 
 cdtap()

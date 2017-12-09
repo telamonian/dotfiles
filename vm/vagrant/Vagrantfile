@@ -81,4 +81,44 @@ Vagrant.configure("2") do |config|
             /vagrant/provision/password_provision.sh root ubuntu linuxbrew
         SHELL
     end
+    
+    config.vm.define "linuxbrew_headless" do |linuxbrew_headless|
+        if VAGRANT_COMMAND == "ssh"
+            linuxbrew_headless.ssh.username = 'linuxbrew'
+            #config.ssh.username = 'root'
+            #config.ssh.password = 'vagrant'
+            #config.ssh.insert_key = 'true'
+        end
+
+        linuxbrew_headless.vm.box = "ubuntu/xenial64"
+        linuxbrew_headless.vm.box_check_update = false
+        linuxbrew_headless.vm.network "forwarded_port", guest: 22, host: 10025, host_ip: "127.0.0.1"
+
+        linuxbrew_headless.vm.provision "shell", inline: <<-SHELL
+            /vagrant/provision/linuxbrew_xenial_pkg_provision.sh
+            /vagrant/provision/linuxbrew_brew_provision.sh ubuntu
+
+            /vagrant/provision/password_provision.sh root ubuntu linuxbrew
+        SHELL
+    end
+    
+    config.vm.define "linuxbrew_tmp" do |linuxbrew_tmp|
+        if VAGRANT_COMMAND == "ssh"
+            linuxbrew_tmp.ssh.username = 'linuxbrew'
+            #config.ssh.username = 'root'
+            #config.ssh.password = 'vagrant'
+            #config.ssh.insert_key = 'true'
+        end
+
+        linuxbrew_tmp.vm.box = "ubuntu/xenial64"
+        linuxbrew_tmp.vm.box_check_update = false
+        linuxbrew_tmp.vm.network "forwarded_port", guest: 22, host: 10026, host_ip: "127.0.0.1"
+
+        linuxbrew_tmp.vm.provision "shell", inline: <<-SHELL
+            /vagrant/provision/linuxbrew_xenial_pkg_provision.sh
+            /vagrant/provision/linuxbrew_brew_provision.sh ubuntu
+
+            /vagrant/provision/password_provision.sh root ubuntu linuxbrew
+        SHELL
+    end
 end

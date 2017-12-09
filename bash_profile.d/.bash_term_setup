@@ -21,5 +21,5 @@ export EDITOR="vim"
 
 # use vim for viewing manpages (default is /usr/bin/less)
 # MANPAGER needs to be unset locally when called so that man falls back on its default pager instead of calling vim recrusively
-export MANPAGER="unset MANPAGER; env MAN_PN=1 vim -M +MANPAGER -"
+export MANPAGER="vim --not-a-term +MANPAGER -"
 

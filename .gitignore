@@ -1,6 +1,8 @@
 # random os junk
-~$*
 .DS_Store
+
+# random ms office junk
+~$*
 
 # python/cython intermediate files
 *.pyc
