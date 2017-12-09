@@ -27,16 +27,12 @@ source "${reldir}"/dotvars.sh
 
 bashProfilePaths()
 {
-    #bashsrcs=()
     for bashsrc in "${absdotdir}"/bash_profile.d/.bash_*; do
         case "${bashsrc}" in
             *.swp ) continue;;
             * ) echo "${bashsrc}";;
         esac
     done
-    
-    #echo $( IFS=$'\n'; echo "${bashsrcs[*]}" )
-    #echo "${bashsrcs[@]}"
 }
 
 # if the file is not being sourced, run bashProfilePaths now

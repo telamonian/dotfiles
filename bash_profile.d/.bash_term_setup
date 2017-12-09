@@ -22,3 +22,7 @@ export EDITOR="vim"
 # use vim for viewing manpages (default is /usr/bin/less)
 export MANPAGER="env MAN_PN=1 vim --not-a-term +MANPAGER -"
 
+# When set, MANAPGER takes precedence when using python's help(...) command at
+# a terminal. The above MANPAGER breaks help() though, so we use another var
+# to override MANPAGER when python starts up (implemented in .pythonstartup.py)
+export PYDOCPAGER="vim --not-a-term +PYDOCPAGER -"
