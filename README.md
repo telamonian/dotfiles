@@ -4,11 +4,12 @@
 - Two steps required for use:
     - Add these lines to the top of your `~/.bash_profile`:
         ```
-        DOTFILES=<path-to-your-dotfile-repo>
-        
-        for bashsrc in ${DOTFILES}/bash_profile.d/.bash_*; do
+        DOT_REPO=<path-to-your-dotfile-repo>
+
+        # import the .bash_* files from dotfiles
+        for bashsrc in $(${DOT_REPO}/src/bashProfilePaths.sh); do
             source $bashsrc
-        done
+        done 
         ```
     - Run the `initAliases.sh` script that's located at the root of this repository.
 

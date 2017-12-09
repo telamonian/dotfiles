@@ -41,15 +41,16 @@ while getopts hdr opt; do
 done
 shift "$((OPTIND-1))"   # Discard the options and sentinel --
 
-# figure out the absolute path to the directory one level above this script
-reldir=$(dirname "$(stat -f "$0")")/..
-absdir=$(cd "${reldir}" && pwd -P)
+# get absdotdir (the absolute path to the dotfile root dir) from vars.sh
+reldir=$(dirname "$(stat -f "${BASH_SOURCE}")")
+source "${reldir}"/dotvars.sh
+#absdotdir=$(cd "${reldir}" && pwd -P)
 
 # might be a better way of doing this, but for now we just cheat with pyton in order to get the relative path between the dotfiles (including this script) and ${HOME}
-relpath=$(python -c "import os.path; print os.path.relpath(\"${absdir}\", \"${HOME}\")")
+relpath=$(python -c "import os.path; print os.path.relpath(\"${absdotdir}\", \"${HOME}\")")
 
 ## loop through every file in dotfile.d that starts with exactly one period and create softlinks in ${HOME} pointing to them along relpath
-for dotfileReal in ${absdir}/dotfile.d/.[!.]*; do
+for dotfileReal in ${absdotdir}/dotfile.d/.[!.]*; do
     case $dotfilereal in
         # filter out any .swp files
         *.swp ) continue;;

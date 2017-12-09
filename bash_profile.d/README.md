@@ -6,13 +6,14 @@
 - Manually add the following lines to the top of `~/.bash_profile`:
     
     ```
-    DOTFILES=<path-to-your-dotfile-repo>
+    DOT_REPO=<path-to-your-dotfile-repo>
     
-    for bashsrc in ${DOTFILES}/bash_profile.d/.bash_*; do
+    # import the .bash_* files from dotfiles
+    for bashsrc in $(${DOT_REPO}/src/bashProfilePaths.sh); do
         source $bashsrc
     done
     ```
-    
+
 - *Note*: by design, nothing in this repo will automatically alter your existing `~/.bash*` files
     - *exception: `~/.bash_history` has some automatic restoration behavior set in bash_profile.d/.bash_hist_setup*
 
