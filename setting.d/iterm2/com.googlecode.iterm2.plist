@@ -45,7 +45,7 @@
 	<key>DisableFullscreenTransparency</key>
 	<true/>
 	<key>DisableWindowSizeSnap</key>
-	<true/>
+	<false/>
 	<key>EnableRendezvous</key>
 	<false/>
 	<key>FocusFollowsMouse</key>
@@ -111,7 +111,7 @@
 	gAKACoAN0xAJChEVGVdOUy5rZXlzoxITFIADgASABaMWFxiABoAHgAiACVpJZGVudGlm
 	aWVyVVdpZHRoVkhpZGRlblEwI0BowAAAAAAACNIhIiMkWiRjbGFzc25hbWVYJGNsYXNz
 	ZXNcTlNEaWN0aW9uYXJ5oiMlWE5TT2JqZWN00xAJCicrGaMSExSAA4AEgAWjLC0YgAuA
-	DIAIgAlRMSNAczAAAAAAANIhIjM0Xk5TTXV0YWJsZUFycmF5ozM1JVdOU0FycmF5XxAP
+	DIAIgAlRMSNAc7AAAAAAANIhIjM0Xk5TTXV0YWJsZUFycmF5ozM1JVdOU0FycmF5XxAP
 	TlNLZXllZEFyY2hpdmVy0Tg5VUFycmF5gAEACAARABoAIwAtADIANwBGAEwAUQBcAGMA
 	ZgBoAGoAbABzAHsAfwCBAIMAhQCJAIsAjQCPAJEAnACiAKkAqwC0ALUAugDFAM4A2wDe
 	AOcA7gDyAPQA9gD4APwA/gEAAQIBBAEGAQ8BFAEjAScBLwFBAUQBSgAAAAAAAAIBAAAA
@@ -167,83 +167,83 @@
 	<key>NSWindow Frame SUUpdateAlertFrame</key>
 	<string>992 770 575 392 0 0 2560 1418 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>1037 298 796 473 0 0 2560 1417 </string>
+	<string>313 514 1018 447 0 0 2560 1417 </string>
 	<key>NSWindow Frame UKCrashReporter</key>
 	<string>230 834 592 584 0 0 2560 1418 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>818 216 925 597 0 0 1920 1057 </string>
+	<string>532 577 925 597 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
-	<string>607 388 925 597 0 0 1920 1057 </string>
+	<string>556 555 925 597 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 10</key>
-	<string>1635 187 925 597 0 0 2560 1417 </string>
+	<string>1463 713 925 597 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 11</key>
-	<string>628 820 925 597 0 0 2560 1417 </string>
+	<string>1611 248 925 597 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 12</key>
 	<string>1635 820 925 597 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 13</key>
-	<string>1248 407 925 597 0 0 2560 1417 </string>
+	<string>0 407 925 597 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 14</key>
 	<string>455 196 925 597 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 15</key>
 	<string>888 820 925 597 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 16</key>
-	<string>275 183 1780 907 0 0 2560 1417 </string>
+	<string>275 493 925 597 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 17</key>
 	<string>909 820 925 597 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 18</key>
 	<string>849 820 925 597 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 19</key>
-	<string>306 320 925 597 0 0 1680 1027 </string>
+	<string>663 610 925 597 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 2</key>
-	<string>0 361 925 597 0 0 1920 1057 </string>
+	<string>1312 -106 1468 1113 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 20</key>
-	<string>1061 712 1618 597 0 0 2560 1417 </string>
+	<string>1061 712 925 597 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 21</key>
 	<string>0 254 925 597 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 22</key>
-	<string>0 820 925 597 0 0 2560 1417 </string>
+	<string>397 201 1612 1216 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 23</key>
 	<string>217 594 925 597 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 24</key>
-	<string>241 403 1105 597 0 0 1680 1027 </string>
+	<string>610 769 925 597 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 25</key>
-	<string>323 272 1294 692 0 0 1680 1027 </string>
+	<string>1059 367 1177 914 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 26</key>
-	<string>230 719 925 597 0 0 2560 1417 </string>
+	<string>431 694 925 597 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 27</key>
-	<string>1115 256 925 597 0 0 2560 1417 </string>
+	<string>923 150 925 597 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 28</key>
-	<string>675 820 1105 597 0 0 2560 1417 </string>
+	<string>255 186 925 597 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 29</key>
-	<string>1162 304 1105 597 0 0 2560 1417 </string>
+	<string>1162 304 925 597 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 3</key>
-	<string>329 232 925 597 0 0 1920 1057 </string>
+	<string>402 72 1445 604 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 30</key>
-	<string>325 770 1105 597 0 0 2560 1417 </string>
+	<string>325 770 925 597 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 31</key>
-	<string>819 688 1105 597 0 0 2560 1417 </string>
+	<string>819 688 925 597 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 32</key>
-	<string>1333 527 1105 597 0 0 2560 1417 </string>
+	<string>1333 527 925 597 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 33</key>
-	<string>793 96 1105 597 0 0 2560 1417 </string>
+	<string>793 96 925 597 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 34</key>
-	<string>1359 4 1105 597 0 0 2560 1417 </string>
+	<string>1359 4 925 597 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 35</key>
-	<string>1451 299 1105 597 0 0 2560 1417 </string>
+	<string>1020 502 925 597 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 36</key>
-	<string>153 646 1105 597 0 0 2560 1417 </string>
+	<string>153 646 925 597 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 37</key>
-	<string>565 -12 1105 597 0 0 2560 1417 </string>
+	<string>609 489 925 597 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 38</key>
-	<string>37 -4 1366 901 0 0 2560 1417 </string>
+	<string>256 13 925 597 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 39</key>
-	<string>1052 793 1105 597 0 0 2560 1417 </string>
+	<string>1052 793 925 597 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 4</key>
-	<string>109 290 1920 559 0 0 1920 1057 </string>
+	<string>1161 688 925 597 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 40</key>
-	<string>1455 266 1105 597 0 0 2560 1417 </string>
+	<string>1455 266 925 597 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 41</key>
-	<string>994 704 1105 597 0 0 2560 1417 </string>
+	<string>994 704 925 597 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 42</key>
 	<string>960 820 1105 597 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 43</key>
@@ -261,7 +261,7 @@
 	<key>NSWindow Frame iTerm Window 49</key>
 	<string>1134 616 745 502 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 5</key>
-	<string>658 437 925 597 0 0 1920 1057 </string>
+	<string>658 820 925 597 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 50</key>
 	<string>848 649 1483 768 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 51</key>
@@ -271,11 +271,11 @@
 	<key>NSWindow Frame iTerm Window 6</key>
 	<string>751 688 925 597 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 7</key>
-	<string>301 820 925 597 0 0 2560 1417 </string>
+	<string>860 820 925 597 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 8</key>
 	<string>210 739 925 597 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 9</key>
-	<string>272 478 1312 939 0 0 2560 1417 </string>
+	<string>569 564 925 597 0 0 2560 1417 </string>
 	<key>New Bookmarks</key>
 	<array>
 		<dict>
@@ -4619,7 +4619,7 @@
 	<key>findRegex_iTerm</key>
 	<false/>
 	<key>iTerm Version</key>
-	<string>3.1.beta.5</string>
+	<string>3.1.5</string>
 	<key>kCommandHistoryHasEverBeenUsed</key>
 	<true/>
 </dict>
