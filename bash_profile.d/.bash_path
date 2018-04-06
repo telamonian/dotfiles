@@ -17,6 +17,7 @@ PATH="/usr/local/sbin:${PATH}"
 PATH="/usr/local/bin:${PATH}"
 PATH="/usr/local/opt/python/libexec/bin:${PATH}"
 PATH="${HOME}/usr/bin:${PATH}"
+PATH="/usr/local/opt/python@2/bin:${PATH}"   # fix for stupid homebrew futzing with the python paths
 
 # append to back. The final elemnt in this section will end up at the end of $PATH
 PATH="${PATH}:${HADOOP_HOME}/bin:${SPARK_HOME}/../bin"

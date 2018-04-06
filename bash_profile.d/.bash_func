@@ -8,6 +8,12 @@ argStripLast()
     echo "${@:1:$#-1}"
 }
 
+argGetLast()
+{
+    ## when run on a list of args, return only the last arg
+    echo "${@:$#:1}"
+}
+
 #### general functions
 :only()
 {
@@ -21,7 +27,11 @@ abspath()
 {
     ## assuming argument is a valid relative path, returns equivalent absolute path
     ## `ls -d` is to check if return value is valid path
-    echo $(ls -d $(cd $(dirname "$1") && pwd -P)/$(basename "$1"))
+    dirstr=$(cd $(dirname "$1") && pwd -P)
+    basestr=$(basename "$1")
+    echo $(ls -d "${dirstr}"/"${basestr}")
+
+    #echo $(ls -d $(cd $(dirname "$1") && pwd -P)/$(basename "$1"))
 }
 
 cdtap()
@@ -59,6 +69,41 @@ dologall()
     unbuffer "${@}" | tee "${LOGFILE}"
 }
 
+__exists()
+{
+    if [ $1 $2 ]; then
+        echo $2
+    fi
+}
+
+_exists()
+{
+    if [ "$#" -gt 1 ]; then
+        for f in ${@:2}; do
+            __exists ${@:1:1} $f
+        done
+    else
+        while read f; do
+            __exists ${@:1:1} $f
+        done
+    fi
+}
+
+exists()
+{
+    _exists -a $@
+}
+
+existsDir()
+{
+    _exists -d $@
+}
+
+existsFile()
+{
+    _exists -f $@
+}
+
 findDirsContaining()
 {
     ## Find all dirs in $1 containing files or dirs named $2.
@@ -71,8 +116,8 @@ hist()
 {
     ## Find all matches (using grep) to a regex in ${HOME}/.bash_history.
     ## If only x matches are desired, use as `hist -m x <regex-pattern>`.
-
-    grep $@ "${HOME}/.bash_history"
+    
+    grep "${@}" "${HOME}/.bash_history"
 }
 
 histtail()
@@ -80,8 +125,9 @@ histtail()
     ## Finds the last 25 matches (using grep-m ) to a regex in ${HOME}/.bash_history.
     ## The results are then sorted according to the order they occur in .bash_history (ie newest line last, instead of in reverse order).
 
+    greplast "${@}" "${HOME}/.bash_history"
     #tail -r "${HOME}/.bash_history" | grep -m 25 $@ | nl | sort -nr | cut -f 2-
-    gtac "${HOME}/.bash_history" | grep -m 25 "${@}" | nl | sort -nr | cut -f 2-
+    #gtac "${HOME}/.bash_history" | grep -m 25 "${@}" | nl | sort -nr | cut -f 2-
 }
 
 gitfixmodtime()
@@ -100,10 +146,10 @@ greplast()
     ## Get the last 25 matches (using grep -m) to a regex in a file.
     ## Requires `brew install coreutils` or equivalent in order to get the `gtac` cmd.
 
-    gtac ${@:2:-1} | grep -m 25 ${@: 1} | nl | sort -nr | cut -f 2-
+    gtac "${@:$#:1}" | grep -m 25 "${@:1:$#-1}" | nl | sort -nr | cut -f 2-
 
-    # tail version is completely osx native, but has a tendency to stop early (ie before 25 matches are found)
-    #tail -r "${HOME}/.bash_history" | grep -m 25 $@ | nl | sort -nr | cut -f 2-
+    # tail version is completely osx native, but will only search a fixed number of lines, so it may stop  before 25 matches are found
+    #tail -r -n 1000 ${@:$#:1} | grep -m 25 ${@:1:$#-1} | nl | sort -nr | cut -f 2-
 }
 
 removeFilesInList()
@@ -122,4 +168,28 @@ stripColor()
 
     sed -E $'s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[mGK]//g'
 }
+
+#######################
+#### notes on bash ####
+#######################
+
+#### loop over newline-separated list:
+# for x in $LIST; do
+#     ...
+# done
+
+#### loop over passed/piped in newline-separated list:
+# for x in $@; do
+#     ...
+# done
+
+#### loop over the lines of a file called "file.txt":
+# while read x; do
+#     ...
+# done < file.txt
+
+#### loop over space-separated list:
+# for x in ${LIST[@]}; do
+#     ...
+# done
 
