@@ -26,3 +26,17 @@ export MANPAGER="env MAN_PN=1 vim --not-a-term +MANPAGER -"
 # a terminal. The above MANPAGER breaks help() though, so we use another var
 # to override MANPAGER when python starts up (implemented in .pythonstartup.py)
 export PYDOCPAGER="vim --not-a-term +PYDOCPAGER -"
+
+# download the iterm2 integration script if it's not already in $HOME
+if [ ! -f "${HOME}/.iterm2_shell_integration.bash" ]; then
+    printf "Downloading iterm2 integration script...\n\n"
+
+    curl -L https://iterm2.com/shell_integration/bash \
+    -o ~/.iterm2_shell_integration.bash
+
+    printf "\n...done\n\n"
+fi
+
+# source the iterm2 integration script
+source "${HOME}/.iterm2_shell_integration.bash"
+
