@@ -20,11 +20,14 @@ Both install and uninstall only require two easy steps:
         - Includes a bunch of useful bash functions for navigating both the filesystem and a user's bash history
         - Automatically backs up `.bash_hist` at start of every terminal session
             - `.bash_hist` is automatically restored from backup in case of truncation
+    - Automated backup/restore of packages installed by various package managers
+        - TeX Live Manager (backup only)
+        - Homebrew
+        - Python-Pip
     - Vagrant integration
         - Scripts have been added to `virtual_machine.d` for initializing and running VMs.
 
 - Planned features
-    - Homebrew integration (in the `bundle.d` module)
     - Automatic encryption/decryption of private/sensitive files
 
 ## List of Modules in this Dotfile Repo

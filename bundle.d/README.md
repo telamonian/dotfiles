@@ -1,33 +1,61 @@
 # Bundle Specs/Manifests
-## Lists of packages managed by various package managers such as homebrew, TeX, python-pip, etc. 
-The eventual goal is to ensure that all bundles specs are setup for two-way sync with the current live system install (ie the spec can be automatically generated from the live install, and an automatic installation can be carried out from the spec), but this is not possible for certain spec files (eg `tex_manifest.tex`) currently.
 
-## live install &rlarr; spec file syncing instructions
-### live install &rarr; spec file
+The purpose of this module is to allow for automatic backup and restoration of the state of various package managers. It contains one set of `backup` scripts for creating manifests based on the currently installed packages, and another set of `restore` scripts for installing all of the packages listed in a manifesto.
+
+## Backup Scripts
+
+- TeX Live Manager
+    ```
+    ./backup_tex.sh
+    ```
+- homebrew
+    ```
+    ./backup_homebrew.sh
+    ```
+- python-pip (handles both Python 2 and 3)
+    ```
+    ./backup_python.sh
+    ```
+
+## Restore Scripts
+
+- homebrew
+    ```
+    ./restore_homebrew.sh
+    ```
+- python-pip (handles both Python 2 and 3)
+    ```
+    ./restore_python.sh
+    ```
+    
+## Notes
+### Detailed Manual Live Install &rlarr; Spec File Syncing Instructions
+#### live install &rarr; spec file
 
 - TeX
     ```
-    tlmgr list --only-installed > <spec-file.tex>
+    tlmgr list --only-installed > tex_manifest.tex
     ```
 
-- homebrew
+- homebrew (see https://github.com/Homebrew/homebrew-bundle)
     ```
-    tlmgr list --only-installed > <spec-file.tex>
+    brew bundle dump
+    ```
+    - The `--force` option will allow an existing Brewfile to be overwritten as well.
+    
+- python-pip (see https://pip.pypa.io/en/stable/reference/pip_freeze/)
+    ```
+    pip freeze > "${MANIFESTS}/py_manifest.txt"
     ```
     
-- python-pip
-    ```
-    tlmgr list --only-installed > <spec-file.tex>
-    ```
-    
-### spec file &rarr; live install
+#### spec file &rarr; live install
 
-- homebrew
+- homebrew (see https://github.com/Homebrew/homebrew-bundle)
     ```
-    tlmgr list --only-installed > <spec-file.tex>
+    brew bundle
     ```
     
-- python-pip
+- python-pip (see https://pip.pypa.io/en/stable/reference/pip_freeze/)
     ```
-    tlmgr list --only-installed > <spec-file.tex>
+    pip install -r "${MANIFESTS}/py_manifest.txt"
     ```
