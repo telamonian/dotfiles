@@ -34,7 +34,7 @@ class BannerMaker(object):
         self.initBannerLines()
     
     def __str__(self):
-        return '\n'.join(self.bannerLines)
+        return ''.join(line + '\n' for line in self.bannerLines)
 
     def initBannerLines(self):
         self.bannerLines = deepcopy(self.bannerLinesOriginal)

@@ -39,17 +39,18 @@ class Main(object):
     # the real path to this script. Thus for now this script should remain at the toplevel of the dotfile repo
     thisPath = os.path.dirname(os.path.realpath(__file__))
 
-    # abs path to the dotfile.d directory
-    dotfiledPath = os.path.realpath(os.path.join(thisPath, '../', 'dotfile.d'))
+    # path to dir this script is run in
+    dotfilePth = os.getcwd()
 
     def initParser(self):
         parser = ArgumentParserInitDotfile(description='This script creates a new dotfile, including a filetype=bash modeline for vim and an optional banner.')
 
-        parser.add_argument('name',                          help='The new dotfile will be created at %s.' % os.path.join(self.dotfiledPath, '<name>'))
+        parser.add_argument('name',                          help='The new dotfile will be created at %s.' % os.path.join(self.dotfilePth, '<name>'))
         parser.add_argument('-b', '--banner',                help='[optional] A string that will be converted to ascii art and used as a header in the new dotfile.')
         parser.add_argument('-m', '--modeline',
                             default=self.modelineDefault,    help="""[default = "%s"] Modeline that tells vim how to highlight the new dotfile's text.""" % self.modelineDefault)
-
+        parser.add_argument('-f', '--force',
+                            action='store_true',             help='If this flag is set, this script will overwrite any existing dotfile at %s.' % os.path.join(self.dotfilePth, '<name>'))
         return parser
 
     def main(self):
@@ -62,10 +63,10 @@ class Main(object):
         kwargs = parser.parse_kwargs()
 
         # resolve the path to the new dotfile
-        initPath = os.path.join(self.dotfiledPath, kwargs['name'])
+        initPath = os.path.join(self.dotfilePth, kwargs['name'])
 
-        # don't allow overwriting of existing dotfile (for now don't allow any overwriting at all, may be relaxed in future)
-        if os.path.isfile(initPath) or os.path.isdir(initPath):
+        # don't allow overwriting of existing dotfile without `--force` flag
+        if (os.path.isfile(initPath) or os.path.isdir(initPath)) and not kwargs['force']:
             raise ValueError("dotfile at: %s already exists!" % initPath)
 
         # open up the new dotfile for writing
@@ -80,6 +81,8 @@ class Main(object):
                 bannerMaker = BannerMaker(text=kwargs['banner'])
                 bannerMaker.adorn()
                 dotfile.write('%s' % bannerMaker)
+                # add a newline
+                dotfile.write('\n')
 
 if __name__=='__main__':
     mainObj = Main()

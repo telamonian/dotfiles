@@ -46,7 +46,7 @@ reldir=$(dirname "$(stat -f "${BASH_SOURCE}")")
 source "${reldir}"/dotvars.sh
 
 # might be a better way of doing this, but for now we just cheat with pyton in order to get the relative path between the dotfiles (including this script) and ${HOME}
-relpath=$(python -c "import os.path; print os.path.relpath(\"${ABS_DOT_ROOT}\", \"${HOME}\")")
+relpath=$(python -c "from __future__ import print_function; import os.path; print(os.path.relpath(\"${ABS_DOT_ROOT}\", \"${HOME}\"))")
 
 ## loop through every file in {DOT_HOME} that starts with exactly one period and create softlinks in ${HOME} pointing to them along relpath
 for dotfileReal in ${ABS_DOT_ROOT}/${DOT_HOME}/.[!.]*; do

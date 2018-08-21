@@ -1,6 +1,9 @@
+import sys
+import io
+
 import numpy as np
 import os
-import sys
+from pathlib import Path
 
 # define some setup functions
 def _fixmanpager(auto=False):

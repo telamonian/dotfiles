@@ -1,8 +1,8 @@
-# dotfile.d
+# home.d
 
-## Setup instructions for dotfiles in dotfile.d
+## Setup instructions for dotfiles in home.d
 #### Install
-- Place all dotfiles (except for `.bash_profile`) in the `dotfile.d` directory in this repo. The names of all dotfiles must actually begin with the `.` character.
+- Place all dotfiles (except for `.bash_profile`) in the `home.d` directory in this repo. The names of all dotfiles must actually begin with the `.` character.
 - Navigate to this repo in a terminal and run:
     
     ```
@@ -29,3 +29,4 @@
         ```
         ./initAliases.sh -rd
         ```
+
