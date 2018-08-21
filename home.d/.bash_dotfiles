@@ -1,0 +1,43 @@
+# vim: ft=bash
+
+####################################################################
+####  _               _          _       _    __ _ _            ####
+#### | |             | |        | |     | |  / _(_) |           ####
+#### | |__   __ _ ___| |__    __| | ___ | |_| |_ _| | ___  ___  ####
+#### | '_ \ / _` / __| '_ \  / _` |/ _ \| __|  _| | |/ _ \/ __| ####
+#### | |_) | (_| \__ \ | | || (_| | (_) | |_| | | | |  __/\__ \ ####
+#### |_.__/ \__,_|___/_| |_| \__,_|\___/ \__|_| |_|_|\___||___/ ####
+####                     ______                                 ####
+####                    |______|                                ####
+####################################################################
+
+# - enable the bash stuff in this collection of dotfiles by doing one of the
+#   following in your ~/.bash_profile:
+#     - source this file
+#     - source an alias to this file
+#     - add the following lines:
+#
+# # export the path to the dotfiles repo
+# export DOT_REPO="${HOME}/git/dotfiles"
+# 
+# # import the .bash_* files from dotfiles
+# for bashsrc in $(${DOT_REPO}/src/bashProfilePaths.sh); do
+#     source $bashsrc
+# done
+
+# get the real pth to this script (regardless of aliases)
+SOURCE="${BASH_SOURCE[0]}"
+while [ -h "$SOURCE" ]; do # resolve $SOURCE until the file is no longer a symlink
+  DIR="$( cd -P "$( dirname "$SOURCE" )" >/dev/null && pwd )"
+  SOURCE="$(readlink "$SOURCE")"
+  [[ $SOURCE != /* ]] && SOURCE="$DIR/$SOURCE" # if $SOURCE was a relative symlink, we need to resolve it relative to the path where the symlink file was located
+done
+
+# export the real path to the dotfile repository
+export DOT_REPO=$(cd "$(dirname "$(stat -f "${SOURCE}")")"/.. >/dev/null && pwd -P)
+
+# import the .bash_* files from $DOT_REPO/bash_profile.d
+for bashsrc in $(${DOT_REPO}/src/bashProfilePaths.sh); do
+    source $bashsrc
+done
+
