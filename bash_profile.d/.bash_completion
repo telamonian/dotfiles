@@ -10,11 +10,12 @@
 ####                     ______                 | |                              ####
 ####                    |______|                |_|                              ####
 #####################################################################################
+## source all of the tab completion scripts in bash_completion.d
 
 # relative pth to the dir containing this script
 reldir=$(dirname "$(stat -f "${BASH_SOURCE}")")
 
-# source all of the completion scripts in bash_completion.d
+# loop over the scripts in bash_completion.d and source them
 for bash_completion in ${reldir}/bash_completion.d/*.bash; do
     source $bash_completion
 done

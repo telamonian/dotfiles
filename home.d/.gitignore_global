@@ -1,2 +1,6 @@
+# vim: filetype=conf
+
+# os tmp files
 *~
 .DS_Store
+

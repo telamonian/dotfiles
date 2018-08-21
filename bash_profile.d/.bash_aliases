@@ -8,8 +8,12 @@
 ##### | (_| | | | (_| \__ \  __/\__ \#####
 #####  \__,_|_|_|\__,_|___/\___||___/#####                                
 ##########################################
-# general purpose aliases
+#### general purpose aliases
 
+# aliases for listing files
+alias lsdot="ls -d .[!.]*"
+
+# aliases for copying/downloading files
 alias rget="wget -r --user tel --password ampzampz"
 alias msync="rsync -avP --rsh=ssh"
 alias msync_lm="msync -f\"+ */\" -f\"+ *.err\" -f\"+ *.lmint\" -f\"+ *.log\" -f\"+ *.sge\" -f\"+ *.slurm\"  -f\"- *\""
