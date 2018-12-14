@@ -58,3 +58,8 @@ alias dmachine_vbox='docker-machine create --driver virtualbox docker-vm'
 
 # for setting up a shell env to interact with the docker cmd line program
 alias dmachine_env='eval "$(docker-machine env docker-vm)"'
+
+# for disabling/reenabling spotlight on a mac
+alias disable_spotlight='sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.metadata.mds.plist'
+alias enable_spotlight='sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.metadata.mds.plist'
+
