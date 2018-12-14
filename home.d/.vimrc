@@ -5,7 +5,11 @@ if has("syntax")
   syntax on
 endif
 
-" tab stuff
+" buffer/tab (as in windows) stuff
+" allow for swtiching between buffers without saving (ie allow buffers to be 'hidden')
+set hidden
+
+" tab (as in whitespace) stuff
 set tabstop=4
 set softtabstop=4
 set shiftwidth=4
@@ -15,12 +19,12 @@ set smartindent
 colorscheme darkdevel 
 
 " Normally we use vim-extensions. If you want true vi-compatibility
-" remove change the following statements
+" remove the following statements
 set nocompatible        " Use Vim defaults instead of 100% vi compatibility
 set backspace=indent,eol,start  " more powerful backspacing
 
 " Now we set some defaults for the editor
-set history=10000          " keep 50 lines of command line history
+set history=10000          " keep 10000 lines of command line history
 set ruler               " show the cursor position all the time
 
 " python settings
