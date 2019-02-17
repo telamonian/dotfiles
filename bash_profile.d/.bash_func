@@ -122,12 +122,10 @@ hist()
 
 histtail()
 {
-    ## Finds the last 25 matches (using grep-m ) to a regex in ${HOME}/.bash_history.
+    ## Finds the last m (default=25) matches to a regex in ${HOME}/.bash_history.
     ## The results are then sorted according to the order they occur in .bash_history (ie newest line last, instead of in reverse order).
 
     greplast "${@}" "${HOME}/.bash_history"
-    #tail -r "${HOME}/.bash_history" | grep -m 25 $@ | nl | sort -nr | cut -f 2-
-    #gtac "${HOME}/.bash_history" | grep -m 25 "${@}" | nl | sort -nr | cut -f 2-
 }
 
 gitfixmodtime()
@@ -143,10 +141,26 @@ gitfixmodtime()
 
 greplast()
 {
-    ## Get the last 25 matches (using grep -m) to a regex in a file.
-    ## Requires `brew install coreutils` or equivalent in order to get the `gtac` cmd.
+    ## Get the last m matches (using grep) to a regex in a file.
 
-    gtac "${@:$#:1}" | grep -m 25 "${@:1:$#-1}" | nl | sort -nr | cut -f 2-
+    # test if `gtac` is available
+    command -v gtac >/dev/null 2>&1 || { printf >&2 "%s\n" "\`greplast\` requires the \`gtac\` cmd. Aborting." "(Note: on Mac, \`gtac\` can be obtained by running \`brew install coreutils\`.)"; exit 1; }
+
+    lines=25
+
+    print_usage() {
+        printf "%s\n" "Usage: greplast [-m <lines, default=25>] <gets-passed-to-grep-untouched>" "" "Get the last m (default=25) matches (using grep) to a regex in a file." "The results are then sorted according to the order they occur in the file (ie newest line last, instead of in reverse order)."
+    }
+
+    while getopts 'm:' flag; do
+        case "${flag}" in
+            m) files="${OPTARG}" ;;
+            *) print_usage
+                exit 1 ;;
+        esac
+    done
+
+    gtac "${@:$#:1}" | grep -m "${lines}" "${@:1:$#-1}" | nl | sort -nr | cut -f 2-
 
     # tail version is completely osx native, but will only search a fixed number of lines, so it may stop  before 25 matches are found
     #tail -r -n 1000 ${@:$#:1} | grep -m 25 ${@:1:$#-1} | nl | sort -nr | cut -f 2-
