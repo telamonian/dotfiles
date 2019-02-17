@@ -12,10 +12,13 @@
 ###############################################
 
 # set environment variables
+export HADOOP_VERSION=3.1.1
+export SPARK_VERSION=1.5.1
+
 export JAVA_HOME=$(/usr/libexec/java_home)
-export HADOOP_HOME=/usr/local/Cellar/hadoop/2.7.1
+export HADOOP_HOME="/usr/local/Cellar/hadoop/${HADOOP_VERSION}"
 export HADOOP_CONF_DIR=$HADOOP_HOME/libexec/etc/hadoop
-export SPARK_HOME=/usr/local/Cellar/apache-spark/1.5.1/libexec
+export SPARK_HOME="/usr/local/Cellar/apache-spark/${SPARK_VERSION}/libexec"
 
 # set alias start & stop scripts
 alias hstart="$HADOOP_HOME/sbin/start-dfs.sh;$HADOOP_HOME/sbin/start-yarn.sh"
