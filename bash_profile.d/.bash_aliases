@@ -63,3 +63,6 @@ alias dmachine_env='eval "$(docker-machine env docker-vm)"'
 alias disable_spotlight='sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.metadata.mds.plist'
 alias enable_spotlight='sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.metadata.mds.plist'
 
+## aliases for jupyterlab development
+# stash changes to build system before commit
+alias jlab_stash='git stash push -- *.config.js tsconfigbase.json'

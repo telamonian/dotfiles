@@ -156,6 +156,15 @@ gitfixmodtime()
     done
 }
 
+gitrestore()
+{
+    ## Restore the most recent version of a deleted file/dir in a git repository
+
+    file=$1
+    latestrev=$(git rev-list -n 1 HEAD -- "${file}")
+    git checkout "${latestrev}^" -- "${file}"
+}
+
 greplast()
 {
     ## Get the last m (default=25) matches to a regex in a file.
@@ -203,6 +212,12 @@ stripColor()
     ## Assumes the escapes begin with \x1B, which just so happens to be the standard `esc` char.
 
     sed -E $'s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[mGK]//g'
+}
+
+title() {
+    ## Sets the title of the current terminal
+
+    echo -ne "\033]0;"$*"\007"
 }
 
 #######################
