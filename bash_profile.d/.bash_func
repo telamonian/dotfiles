@@ -36,8 +36,8 @@ abspath()
 
 beginswith() 
 { 
-    ## posix compliant check for <string begins with X>.
-    ## Use in constructs like `if beginswith str $X; then`
+    ## posix compliant check for <str begins with substr>.
+    ## Use in constructs like `if beginswith substr str; then`
     
     substr="$1"
     str=$2
