@@ -34,6 +34,17 @@ abspath()
     #echo $(ls -d $(cd $(dirname "$1") && pwd -P)/$(basename "$1"))
 }
 
+beginswith() 
+{ 
+    ## posix compliant check for <string begins with X>.
+    ## Use in constructs like `if beginswith str $X; then`
+    
+    substr="$1"
+    str=$2
+
+    case $str in $substr*) true;; *) false;; esac;
+}
+
 cdtap()
 {
     # cd to root repository directory of a homebrew tap
@@ -161,8 +172,17 @@ gitrestore()
     ## Restore the most recent version of a deleted file/dir in a git repository
 
     file=$1
-    latestrev=$(git rev-list -n 1 HEAD -- "${file}")
-    git checkout "${latestrev}^" -- "${file}"
+    latestrev=$(git rev-list -n 1 HEAD -- "${file}" 2>&1)
+    
+    if beginswith fatal $latestrev; then
+        >&2 echo "${latestrev}"
+    elif [ -n "${latestrev}" ]; then
+        echo "Found ${file} at ${latestrev} (most recent revision), restoring..."
+        git checkout "${latestrev}^" -- "${file}"
+        echo "done"
+    else
+        echo "Did not find ${file} at any revision in this repository"
+    fi
 }
 
 greplast()
