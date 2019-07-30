@@ -19,9 +19,6 @@ alias msync="rsync -avP --rsh=ssh"
 alias msync_lm="msync -f\"+ */\" -f\"+ *.err\" -f\"+ *.lmint\" -f\"+ *.log\" -f\"+ *.sge\" -f\"+ *.slurm\"  -f\"- *\""
 alias msync_marcc_lm="msync_marcc -f\"+ */\" -f\"- *.err\" -f\"- *.log\""
 
-# alias for printing out octal permissions on the command line
-alias octalperm="stat -f %Mp%Lp"
-
 # aliases for setting up the named cmake builds
 alias cmakedebug='cmake -DCMAKE_BUILD_TYPE=DEBUG'
 alias cmakerelease='cmake -DCMAKE_BUILD_TYPE=RELEASE'

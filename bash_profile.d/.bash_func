@@ -217,6 +217,46 @@ greplast()
     #tail -r -n 1000 ${@:$#:1} | grep -m "{lines}" ${@:1:$#-1} | nl | sort -nr | cut -f 2-
 }
 
+octalperm()
+{
+    ## Print out octal permissions
+
+    stat -f %Mp%Lp
+}
+
+pidtree() 
+{
+    ## Recursively get all of the child pids of a given pid
+
+    while read P PP; do
+        CHILD=CHILDS__${PP}
+        printf -v "CHILDS__${PP}" %s "${!CHILD} $P"
+    done < <(ps -e -o pid= -o ppid=)
+    
+    walk() {
+        CHILD=CHILDS__$1
+        for i in ${!CHILD}; do
+            echo $i
+            walk $i
+        done
+    }
+    
+    for i in "$@"; do
+        walk $i
+    done
+}
+
+pidtreeShow() 
+{
+    ## Recursively get all of the child pids of a given pid,
+    ## then print out some info about each one
+
+    PS_CACHE=$(ps aux)
+    for pid in $(pidtree $1); do
+        grep $pid <<< "${PS_CACHE}"
+    done
+}
+
 removeFilesInList()
 {
     ## Removes all of the files in a passed in list, including empty dirs.
@@ -234,10 +274,31 @@ stripColor()
     sed -E $'s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[mGK]//g'
 }
 
-title() {
+title() 
+{
     ## Sets the title of the current terminal
 
     echo -ne "\033]0;"$*"\007"
+}
+
+unquarantine()
+{
+    ## Recursively remove the quarantine extended attribute
+    ## from files.
+    ##
+    ## Apple adds a "quarantine" attribute to downloaded files
+    ## An `@` sign in permissions may indicate this, and you can
+    ## check directly with `xattr <path>`. Quarantined exes get
+    ## a Gatekeeper dialogue the first time they're opened
+
+    sudo xattr -r -d com.apple.quarantine $1
+}
+
+wipe() 
+{
+    ## Clear the terminal screen and delete the scrollback buffer
+
+    clear && printf '\e[3J'
 }
 
 #######################
