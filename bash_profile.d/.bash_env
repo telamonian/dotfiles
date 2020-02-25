@@ -28,6 +28,9 @@ alias lldblibs="export DYLD_LIBRARY_PATH=/usr/local/opt/llvm/lib"
 # pythonstartup to allow for automatic import of numpy, etc. when starting an interactive python session
 export PYTHONSTARTUP="${HOME}/.pythonstartup.py"
 
+# sets the command used by the python (>3.7) `breakpoint()` function
+export PYTHONBREAKPOINT=ipdb.set_trace
+
 # for the Leap SDK
 export LEAPSDK_DIR='/usr/local/LeapSDK'
 
@@ -48,6 +51,10 @@ export VAGRANT_DOTFILE_PATH="${HOME}/usr/vm/vagrant"
 # the directory where vagrant stores global state. 
 # boxes and such are stored here, so this is the largest working dir.
 export VAGRANT_HOME="${HOME}/usr/vm/vagrant"
+
+## homebrew env
+# disable stupid new agressive cleanup policy
+export HOMEBREW_NO_INSTALL_CLEANUP=true
 
 # break glass in case of linking emergency (to freshly built libs)
 #export DYLD_FALLBACK_LIBRARY_PATH=/Users/tel/usr/lib:$DYLD_FALLBACK_LIBRARY_PATH
