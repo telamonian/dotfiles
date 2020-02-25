@@ -16,6 +16,7 @@
 PATH="/usr/local/sbin:${PATH}"
 PATH="/usr/local/bin:${PATH}"
 PATH="${HOME}/usr/bin:${PATH}"
+PATH="${HOME}/.cargo/bin:${PATH}"
 PATH="/usr/local/opt/python/libexec/bin:${PATH}"
 #PATH="/usr/local/opt/python@2/bin:${PATH}"   # fix for stupid homebrew futzing with the python paths
 
@@ -28,3 +29,4 @@ PATH="${PATH}:${HOME}/git/lm/build"
 PATH="${PATH}:/Applications/moe2012/bin"
 
 export PATH
+
