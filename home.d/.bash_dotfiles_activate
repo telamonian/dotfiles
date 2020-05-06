@@ -54,8 +54,9 @@ thisparent()
 
 # export the real path to the dotfile repository
 export DOT_REPO=$(thisparent $BASH_SOURCE)
+_SRC_DIR="$DOT_REPO"/src
 
 # import the .bash_* files from $DOT_REPO/bash_profile.d
-for bashsrc in $(${DOT_REPO}/src/bashProfilePaths.sh); do
+for bashsrc in $("$_SRC_DIR"/bashProfilePaths.sh); do
     source $bashsrc
 done

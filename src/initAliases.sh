@@ -2,6 +2,9 @@
 ## a script that re/create all of necessary links between ${HOME} and the dotfiles repo
 set -e
 
+if [ -z "$DOT_REPO" ]; then echo "DOT_REPO not defined" >&2; exit 1; fi
+
+
 # set up command line parsing via getopts
 # Usage info
 show_help() {
@@ -41,22 +44,21 @@ while getopts hdr opt; do
 done
 shift "$((OPTIND-1))"   # Discard the options and sentinel --
 
-# get some common directory paths (ABS_DOT_ROOT, DOT_HOME, etc.) from vars.sh
-reldir=$(dirname "$(stat -f "${BASH_SOURCE}")")
-source "${reldir}"/dotvars.sh
+# get some common directory paths (DOT_BASH, DOT_HOME, etc.) from vars.sh
+source "$DOT_REPO"/src/dotvars.sh
 
 # might be a better way of doing this, but for now we just cheat with pyton in order to get the relative path between the dotfiles (including this script) and ${HOME}
-relpath=$(python -c "from __future__ import print_function; import os.path; print(os.path.relpath(\"${ABS_DOT_ROOT}\", \"${HOME}\"))")
+relpath=$(python -c "from __future__ import print_function; import os.path; print(os.path.relpath(\"$DOT_REPO\", \"$HOME\"))")
 
 ## loop through every file in {DOT_HOME} that starts with exactly one period and create softlinks in ${HOME} pointing to them along relpath
-for dotfileReal in ${ABS_DOT_ROOT}/${DOT_HOME}/.[!.]*; do
+for dotfileReal in "$DOT_REPO"/"$DOT_HOME"/.[!.]*; do
     case $dotfilereal in
         # filter out any .swp files
         *.swp ) continue;;
     esac
     dotfileName=$(basename $dotfileReal)
-    linkPath=${HOME}/$dotfileName
-    targetPath=${relpath}/${DOT_HOME}/$dotfileName
+    linkPath="$HOME"/$dotfileName
+    targetPath=$relpath/"$DOT_HOME"/$dotfileName
 
     if [ "$remove" = true ] ; then
         echo "Removing link at $linkPath ..."

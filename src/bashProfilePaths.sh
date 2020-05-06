@@ -16,22 +16,27 @@
 # start up.
 
 
+# $_ stores invoke path OR last argument to the previous command
+INVOKE_PATH="$_"
+
+if [ -z "$DOT_REPO" ]; then echo "DOT_REPO not defined" >&2; exit 1; fi
+
 # test if this file is being sourced.
-if [ "$_" != "$0" ]; then
+if [ "${INVOKE_PATH}" != "${BASH_SOURCE[0]}" ]; then
     issoucred=true
 else
     issourced=false
 fi
 
-reldir=$(dirname "$(stat -f "${BASH_SOURCE}")")
-source "${reldir}"/dotvars.sh
+source "$DOT_REPO"/src/dotvars.sh
+_PROFILE_D="$DOT_REPO"/"$DOT_BASH"
 
 bashProfilePaths()
 {
-    for bashsrc in "${ABS_DOT_ROOT}"/"${DOT_BASH}"/.bash_*; do
-        case "${bashsrc}" in
+    for bashsrc in "$_PROFILE_D"/.bash_*; do
+        case "$bashsrc" in
             *.swp ) continue;;
-            * ) echo "${bashsrc}";;
+            * ) echo "$bashsrc";;
         esac
     done
 }
@@ -40,4 +45,3 @@ bashProfilePaths()
 if [ "$issourced" = false ]; then
     bashProfilePaths
 fi
-
