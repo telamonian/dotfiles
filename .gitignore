@@ -11,10 +11,15 @@
 # gdb command history
 .gdb_history
 
-# jetbrains junk
-.idea
+# jetbrains ide stuff
 *.iml
+.idea/
 /cmake-build*
+
+# vscode ide stuff
+*.code-workspace
+.history
+.vscode
 
 # random vim junk
 */.vim/.netrwhist

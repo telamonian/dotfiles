@@ -1,22 +1,5 @@
-# vim: ft=bash
-
-####################################################################
-####  _               _          _       _    __ _ _            ####
-#### | |             | |        | |     | |  / _(_) |           ####
-#### | |__   __ _ ___| |__    __| | ___ | |_| |_ _| | ___  ___  ####
-#### | '_ \ / _` / __| '_ \  / _` |/ _ \| __|  _| | |/ _ \/ __| ####
-#### | |_) | (_| \__ \ | | || (_| | (_) | |_| | | | |  __/\__ \ ####
-#### |_.__/ \__,_|___/_| |_| \__,_|\___/ \__|_| |_|_|\___||___/ ####
-####                     ______                                 ####
-####                    |______|                                ####
-####################################################################
-
-# - enable the bash stuff in this collection of dotfiles by doing one of the
-#   following in your ~/.bash_profile:
-#     - source this file
-#     - source an alias to this file
-#     - add the following lines:
-
+#!/usr/bin/env bash
+# vim: filetype=bash
 
 ## func for getting the real pth to a script
 ## (regardless of aliases). Takes $BASH_SOURCE as first arg
@@ -52,10 +35,12 @@ thisparent()
     echo "$( cd -P "$( dirname "$SOURCE" )"/.. >/dev/null 2>&1 && pwd )"
 }
 
-# export the real path to the dotfile repository
-export DOT_REPO=$(thisparent $BASH_SOURCE)
+THIS_PATH=$(thispath $BASH_SOURCE)
+THIS_DIR=$(thisdir $BASH_SOURCE)
+THIS_PARENT=$(thisparent $BASH_SOURCE)
 
-# import the .bash_* files from $DOT_REPO/bash_profile.d
-for bashsrc in $(${DOT_REPO}/src/bashProfilePaths.sh); do
-    source $bashsrc
-done
+echo $THIS_PATH
+echo $THIS_DIR
+echo $THIS_PARENT
+
+source $THIS_DIR/subdir/source.sh
