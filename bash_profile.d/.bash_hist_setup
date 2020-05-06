@@ -42,8 +42,14 @@ BHBAKUPPATH=$HOME/.bash_history_bakup
 BHDIRTYPATH=$HOME/.bash_history_bakup_dirty
 BHLCOUNTPATH=$HOME/.bash_history_linecount
 
-OLD_BHLCOUNT=$(tail -r $BHLCOUNTPATH | egrep -m 1 '.')
 BHLCOUNT=$(wc -l $BHPATH | awk {'print $1'})
+if [ ! -f "$BHLCOUNTPATH" ]; then
+    # initialize the linecount file
+    echo $(date) >> $BHLCOUNTPATH
+    echo $BHLCOUNT >> $BHLCOUNTPATH
+fi
+
+OLD_BHLCOUNT=$(tail -n 1 $BHLCOUNTPATH | egrep -m 1 '.')
 if (( OLD_BHLCOUNT > BHLCOUNT )); then
     echo "$BHPATH has shrunk since last login!"
     echo "was $OLD_BHLCOUNT, now $BHLCOUNT"
