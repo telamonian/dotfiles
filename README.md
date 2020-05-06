@@ -4,12 +4,28 @@
 Both install and uninstall only require two easy steps:
 
 ### Install
-- Navigate to the root of this repo and run `src/initAliases.sh`.
-- In your `.bash_profile` file, add the following single line:
-    - `source "${HOME}/.bash_dotfiles_activate"`
+- `cd` to the root of this repo
+- Run the following:
+    ```bash
+    source home.d/.bash_dotfiles_activate
+    src/initAliases.sh
+    ```
+- In your `.bash_profile` file, add the single line:
+    ```bash
+    source "${HOME}/.bash_dotfiles_activate"
+    ```
+  
 ### Uninstall
-- Remove the `source "${HOME}/.bash_dotfiles_activate"` from your `.bash_profile`.
-- Navigate to the root of this repo and run `src/initAliases.sh -r`.
+- `cd` to the root of this repo
+- Run the following:
+    ```bash
+    src/initAliases.sh -r
+    ```
+- Remove the
+    ```bash
+    source "${HOME}/.bash_dotfiles_activate"
+     ```
+  line from your `.bash_profile`
 
 ## Features
 
