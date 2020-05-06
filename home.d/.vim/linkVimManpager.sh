@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+## DO NOT USE THIS SCRIPT
+## ftplugin/manpager.vim, plugin/manpager DO NOT EXIST AT THE MOMENT
+
+
 # pass your vim executable of choice as the first arg. Defaults to just "vim"
 if [ -z ${1+x} ]; then
     # no arg passed, just use "vim"
@@ -16,22 +20,20 @@ manvim_relpath=ftplugin/man
 manpagervim_relpath=plugin/manpager
 
 # figure out the absolute path to the directory containing this script (which should also be the .vim dir)
-relthisdir=$(dirname "$(stat -f "$0")")
-absthisdir=$(cd $(dirname "${reldir}") && pwd -P)/$(basename "${reldir}")
+THIS_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
-for relpath in ${manvim_relpath} ${manpagervim_relpath}; do
-    abspath=${vim_root_plugindir}/${relpath}
+for _relpath in ${manvim_relpath} ${manpagervim_relpath}; do
+    _abspath=${vim_root_plugindir}/${_relpath}
 
     # move any existing *.vim files out of the way
-    if [ -L ${abspath}.vim ]; then
+    if [ -L ${_abspath}.vim ]; then
         # if the file has already been replaced with a link, just remove it
-        rm ${abspath}.vim
+        rm ${_abspath}.vim
     else
         # assume this is still the original *.vim file, rename it to *.orig
-        mv ${abspath}.vim ${abspath}.orig
+        mv ${_abspath}.vim ${_abspath}.orig
     fi
 
     # make the needed symlink
-    ln -s ${absthisdir}/${relpath}.vim  ${abspath}.vim
+    ln -s "$THIS_DIR"/${_relpath}.vim  ${_abspath}.vim
 done
-
