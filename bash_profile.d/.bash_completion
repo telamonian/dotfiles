@@ -12,14 +12,16 @@
 #####################################################################################
 ## source all of the tab completion scripts in bash_completion.d
 
-# relative pth to the dir containing this script
-reldir=$(dirname "$(stat -f "${BASH_SOURCE}")")
+
+if [ -z "${DOT_REPO}" ]; then echo "DOT_REPO not defined" >&2; exit 1; fi
+
+
+_COMPLETION_D="$DOT_REPO"/bash_profile.d/bash_completion.d
 
 # loop over the scripts in bash_completion.d and source them
-for bash_completion in ${reldir}/bash_completion.d/*.bash; do
+for bash_completion in "$_COMPLETION_D"/*.bash; do
     source $bash_completion
 done
 
 ## source homebrew installed bash-completion, if it exists
 [[ -r "/usr/local/etc/profile.d/bash_completion.sh" ]] && . "/usr/local/etc/profile.d/bash_completion.sh"
-
