@@ -40,3 +40,7 @@ fi
 # source the iterm2 integration script
 source "${HOME}/.iterm2_shell_integration.bash"
 
+# allow the C-s keyboard input to be used for search instead of XON/XOFF signal
+# ref: https://stackoverflow.com/a/25391867
+[[ $- == *i* ]] && stty -ixon
+

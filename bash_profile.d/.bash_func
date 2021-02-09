@@ -273,6 +273,15 @@ pidtreeShow()
     done
 }
 
+pyenvInstallHomebrew()
+{
+    export SDKROOT="/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk"
+    export CFLAGS="-I$(brew --prefix readline)/include -I$(brew --prefix zlib)/include -I$(brew --prefix openssl)/include -I$(brew --prefix sqlite)/include -I$(brew --prefix xz)/include -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include"
+    export LDFLAGS="-L$(brew --prefix readline)/lib -L$(brew --prefix zlib)/lib -L$(brew --prefix openssl)/lib -L$(brew --prefix sqlite)/lib -L$(brew --prefix xz)/lib"
+    
+    pyenv install -v $1
+}
+
 removeFilesInList()
 {
     ## Removes all of the files in a passed in list, including empty dirs.

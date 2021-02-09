@@ -30,3 +30,7 @@ PATH="${PATH}:/Applications/moe2012/bin"
 
 export PATH
 
+# activate the nix package manager
+NIX_ACTIVATE=$HOME/.nix-profile/etc/profile.d/nix.sh
+if [ -e $NIX_ACTIVATE ]; then . $NIX_ACTIVATE; fi
+
