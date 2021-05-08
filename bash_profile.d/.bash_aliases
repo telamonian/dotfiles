@@ -67,3 +67,20 @@ alias enable_spotlight='sudo launchctl load -w /System/Library/LaunchDaemons/com
 # stash changes to build system before commit
 alias jlab_stash='git stash push -- *.config.js tsconfigbase.json'
 
+### homebrew-specific aliases for running versioned python commands
+## run old python
+#alias python@2='$(brew --prefix python@2)/bin/python2'
+#alias pip@2='python@2 -m pip'
+#
+## run python
+#alias python@3.7='$(brew --prefix python@3.7)/bin/python3'
+#alias python@3.8='$(brew --prefix python@3.8)/bin/python3'
+#alias python@3.9='$(brew --prefix python@3.9)/bin/python3'
+#alias python@3='python@3.9'
+#
+## run pip
+#alias pip@3.7='python@3.7 -m pip'
+#alias pip@3.8='python@3.8 -m pip'
+#alias pip@3.9='python@3.9 -m pip'
+#alias pip@3='pip@3.9'
+
